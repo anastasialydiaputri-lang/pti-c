@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HaloSehat - Solusi Kesehatan Terpadu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        /* Header Navigasi bergaya Halodoc */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #e0004d; /* Warna merah khas layanan medis */
+            cursor: pointer;
+        }
+        .logo span {
+            color: #0077b6;
+        }
+        nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+        nav button {
+            background: none;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #4a4a4a;
+            padding: 0.6rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        nav button:hover, nav button.active {
+            background-color: #e0004d;
+            color: white;
+        }
+
+        /* Container Halaman */
+        .page {
+            display: none;
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        .page.active {
+            display: block;
+        }
+
+        /* Banner Hero Beranda */
+        .hero {
+            background: linear-gradient(135deg, #e0004d 0%, #ff4d8d 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Grid Kartu Layanan */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .card {
+            background: white;
+            border: 1px solid #eef0f2;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transition: transform 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+        .card h3 {
+            color: #e0004d;
+            margin-bottom: 0.5rem;
+        }
+        .badge {
+            display: inline-block;
+            background: #eef7fe;
+            color: #0077b6;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 4px;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Form Pendaftaran */
+        form {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        .btn-submit {
+            background-color: #e0004d;
+            color: white;
+            border: none;
+            padding: 0.9rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-submit:hover {
+            background-color: #c00042;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-top: 1px solid #eaeaea;
+            color: #777;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <div class="logo" onclick="showPage('beranda')">Halo<span>Sehat</span></div>
+            <nav>
+                <button onclick="showPage('beranda')" class="active">Beranda</button>
+                <button onclick="showPage('chat')">Chat Dokter</button>
+                <button onclick="showPage('toko')">Toko Kesehatan</button>
+                <button onclick="showPage('janji')">Janji RS</button>
+                <button onclick="showPage('lab')">Layanan Lab</button>
+                <button onclick="showPage('registrasi')">Registrasi</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 1. Beranda -->
+    <div id="beranda" class="page active">
+        <div class="hero">
+            <h1>Solusi Kesehatan Terlengkap</h1>
+            <p>Chat dokter, beli obat, buat janji rumah sakit, dan cek laboratorium dalam satu platform.</p>
+        </div>
+        <h2>Layanan Utama</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Chat dengan Dokter</h3>
+                <p>Konsultasi online cepat dengan puluhan ribu dokter spesialis berpengalaman.</p>
+            </div>
+            <div class="card">
+                <h3>Toko Kesehatan</h3>
+                <p>Beli obat rutin, vitamin, dan alat kesehatan diantar langsung ke rumah Anda.</p>
+            </div>
+            <div class="card">
+                <h3>Buat Janji Rumah Sakit</h3>
+                <p>Cari dokter favorit dan booking jadwal konsultasi tanpa antre.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Chat Dokter -->
+    <div id="chat" class="page">
+        <h2>Konsultasi Dokter Online</h2>
+        <div class="grid">
+            <div class="card">
+                <span class="badge">Dokter Umum</span>
+                <h3>dr. Budi Raharjo</h3>
+                <p>Pengalaman 8 Tahun | Rp 35.000</p>
+                <button class="btn-submit" style="margin-top: 1rem;" onclick="alert('Memulai sesi chat...')">Chat Sekarang</button>
+            </div>
+            <div class="card">
+                <span class="badge">Spesialis Anak</span>
+                <h3>dr. Anisa Putri, Sp.A</h3>
+                <p>Pengalaman 12 Tahun | Rp 75.000</p>
+                <button class="btn-submit" style="margin-top: 1rem;" onclick="alert('Memulai sesi chat...')">Chat Sekarang</button>
+            </div>
+            <div class="card">
+                <span class="badge">Spesialis Kulit</span>
+                <h3>dr. Kevin Wijaya, Sp.DV</h3>
+                <p>Pengalaman 6 Tahun | Rp 60.000</p>
+                <button class="btn-submit" style="margin-top: 1rem;" onclick="alert('Memulai sesi chat...')">Chat Sekarang</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Toko Kesehatan -->
+    <div id="toko" class="page">
+        <h2>Toko Obat & Vitamin</h2>
+        <div class="grid">
+            <div class="card">
+                <span class="badge">Vitamin C</span>
+                <h3>Multivitamin C 500mg</h3>
+                <p>Rp 45.000 / Botol</p>
+                <button class="btn-submit" style="margin-top: 1rem;" onclick="alert('Barang dimasukkan ke keranjang!')">+ Keranjang</button>
+            </div>
+            <div class="card">
+                <span class="badge">Obat Flu</span>
+                <h3>Obat Batuk & Flu 10s</h3>
+                <p>Rp 18.500 / Strip</p>
+                <button class="btn-submit" style="margin-top: 1rem;" onclick="alert('Barang dimasukkan ke keranjang!')">+ Keranjang</button>
+            </div>
+            <div class="card">
+                <span class="badge">Pertolongan Pertama</span>
+                <h3>Plester Luka & Antiseptik</h3>
+                <p>Rp 25.000 / Pack</p>
+                <button class="btn-submit" style="margin-top: 1rem;" onclick="alert('Barang dimasukkan ke keranjang!')">+ Keranjang</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Janji RS -->
+    <div id="janji" class="page">
+        <h2>Buat Janji Temu Rumah Sakit</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>RS Sehat Sejahtera Semarang</h3>
+                <p>Jl. Diponegoro No. 45, Semarang</p>
+                <p><strong>Fasilitas:</strong> UGD 24 Jam, Poli Spesialis, Kamar VIP</p>
+                <button class="btn-submit" style="margin-top: 1rem;" onclick="showPage('registrasi')">Pesan Jadwal</button>
+            </div>
+            <div class="card">
+                <h3>RS Medika Utama</h3>
+                <p>Jl. Pahlawan No. 12, Semarang</p>
+                <p><strong>Fasilitas:</strong> Laboratorium MRI, Spesialis Jantung</p>
+                <button class="btn-submit" style="margin-top: 1rem;" onclick="showPage('registrasi')">Pesan Jadwal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Layanan Lab -->
+    <div id="lab" class="page">
+        <h2>Tes Laboratorium & Homecare</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Paket Cek Darah Lengkap</h3>
+                <p>Pemeriksaan hemoglobin, leukosit, dan trombosit.</p>
+                <p><strong>Rp 150.000</strong></p>
+            </div>
+            <div class="card">
+                <h3>Paket Cek Kolesterol & Gula</h3>
+                <p>Pemeriksaan risiko diabetes dan kesehatan jantung.</p>
+                <p><strong>Rp 220.000</strong></p>
+            </div>
+            <div class="card">
+                <h3>Swab PCR / Antigen Homecare</h3>
+                <p>Petugas lab datang langsung ke rumah Anda.</p>
+                <p><strong>Rp 180.000</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Registrasi Pasien -->
+    <div id="registrasi" class="page">
+        <h2>Pendaftaran Pasien / Akun Baru</h2>
+        <form onsubmit="alert('Pendaftaran Berhasil!'); return false;">
+            <div class="form-group">
+                <label>Nama Lengkap:</label>
+                <input type="text" required placeholder="Sesuai KTP">
+            </div>
+            <div class="form-group">
+                <label>Nomor HP / WhatsApp:</label>
+                <input type="tel" required placeholder="08xxxxxxxxxx">
+            </div>
+            <div class="form-group">
+                <label>Tanggal Lahir:</label>
+                <input type="date" required>
+            </div>
+            <div class="form-group">
+                <label>Pilih Layanan Utama:</label>
+                <select required>
+                    <option value="">-- Pilih Layanan --</option>
+                    <option value="chat">Konsultasi Chat Dokter</option>
+                    <option value="janji">Janji Temu Rumah Sakit</option>
+                    <option value="lab">Pemeriksaan Laboratorium</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-submit">Daftar Sekarang</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 HaloSehat Indonesia. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('nav button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(pageId).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
